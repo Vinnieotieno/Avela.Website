@@ -2,7 +2,6 @@
 
 import { ArrowRight, Play, Zap, Shield, Clock, TrendingUp, Sparkles, Smartphone, CheckCircle, Star, Sun, Moon } from 'lucide-react'
 import { useEffect, useState } from "react"
-import { Button } from '@/components/ui/button'
 
 // Enhanced TypeScript interfaces for better maintainability
 interface TrustIndicator {
@@ -111,9 +110,9 @@ const PhoneMockup = ({ greeting }: { greeting: TimeGreeting }) => {
   const GreetingIcon = greeting.icon
   
   return (
-    <div className="relative w-full max-w-sm mx-auto lg:max-w-none">
+    <div className="relative w-full mt-8 sm:mt-12 lg:mt-18 max-w-xs sm:max-w-sm mx-auto lg:max-w-none">
       {/* Main Phone */}
-      <div className="relative mx-auto w-72 sm:w-80 lg:w-72 xl:w-80 h-[580px] sm:h-[640px] lg:h-[580px] xl:h-[640px] bg-gradient-to-br from-gray-900 to-black rounded-[3rem] p-2 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 group">
+      <div className="relative mx-auto w-64 sm:w-72 md:w-80 lg:w-72 xl:w-80 h-[520px] sm:h-[580px] md:h-[640px] lg:h-[580px] xl:h-[640px] bg-gradient-to-br from-gray-900 to-black rounded-[2.5rem] sm:rounded-[3rem] p-2 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 group">
         <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-[2.5rem] overflow-hidden relative">
           {/* Status Bar */}
           <div className="bg-gray-900 h-8 flex items-center justify-center relative">
@@ -189,17 +188,17 @@ const PhoneMockup = ({ greeting }: { greeting: TimeGreeting }) => {
       </div>
 
       {/* Floating Elements - Responsive positioning */}
-      <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-bounce" style={{ animationDuration: '3s' }}>
+      <div className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 md:-top-4 md:-right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-1.5 py-0.5 sm:px-2 sm:py-1 md:px-4 md:py-2 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-bounce" style={{ animationDuration: '3s' }}>
         <div className="text-xs font-semibold flex items-center space-x-1">
-          <Zap className="w-2 h-2 sm:w-3 sm:h-3" />
-          <span>Instant</span>
+          <Zap className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3" />
+          <span className="text-xs sm:text-xs">Instant</span>
         </div>
       </div>
-      
-      <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 px-2 py-2 sm:px-4 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+
+      <div className="absolute -bottom-1 -left-1 sm:-bottom-2 sm:-left-2 md:-bottom-4 md:-left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 px-1.5 py-1.5 sm:px-2 sm:py-2 md:px-4 md:py-3 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
         <div className="text-xs text-gray-500 dark:text-gray-400">Next payday</div>
-        <div className="font-semibold text-gray-900 dark:text-gray-100 flex items-center space-x-1 text-xs sm:text-sm">
-          <Clock className="w-2 h-2 sm:w-3 sm:h-3 text-[#0081CC]" />
+        <div className="font-semibold text-gray-900 dark:text-gray-100 flex items-center space-x-1 text-xs">
+          <Clock className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 text-[#0081CC]" />
           <span>Sept 05, 2025</span>
         </div>
       </div>
@@ -269,10 +268,10 @@ export default function Hero() {
       <div className="absolute top-32 right-24 sm:top-40 sm:right-32 w-2 h-2 sm:w-3 sm:h-3 bg-blue-500/40 rounded-full animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }} />
       <div className="absolute bottom-24 left-24 sm:bottom-32 sm:left-32 w-2 h-2 bg-[#0081CC]/50 rounded-full animate-bounce" style={{ animationDelay: '2s', animationDuration: '5s' }} />
 
-      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20 relative z-10">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center max-w-none">
           {/* Left Content with Glass Effect */}
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} order-2 lg:order-1`}>
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} order-1 lg:order-1`}>
             {/* Glass container for better text visibility */}
             <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/50 dark:border-gray-700/50 shadow-2xl">
               {/* Enhanced main heading with typing effect */}
@@ -311,24 +310,24 @@ export default function Hero() {
 
               {/* Enhanced CTA buttons with advanced animations */}
               <div className="flex flex-col sm:flex-row gap-4 mt-6 sm:mt-8">
-                <Button className="group relative bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-[#006bb3] hover:to-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-[#0081CC]/25 transform hover:scale-105 flex items-center justify-center space-x-2 overflow-hidden">
+                <button className="group relative bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-[#006bb3] hover:to-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-[#0081CC]/25 transform hover:scale-105 flex items-center justify-center space-x-2 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                   <span className="relative z-10">Get Your Advance</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform relative z-10" />
-                </Button>
+                </button>
                 
-                <Button className="group relative bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold border border-white/50 dark:border-gray-700/50 hover:border-[#0081CC]/30 dark:hover:border-blue-400/30 transition-all duration-300 hover:shadow-xl backdrop-blur-sm flex items-center justify-center space-x-2 overflow-hidden">
+                <button className="group relative bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold border border-white/50 dark:border-gray-700/50 hover:border-[#0081CC]/30 dark:hover:border-blue-400/30 transition-all duration-300 hover:shadow-xl backdrop-blur-sm flex items-center justify-center space-x-2 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-[#0081CC]/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current relative z-10" />
                   <span className="relative z-10">Watch Demo</span>
-                </Button>
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Enhanced right content with floating animations */}
-          <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'} order-1 lg:order-2`} style={{ animationDelay: '600ms' }}>
+          {/* Enhanced right content - Now visible on all screens, comes second on mobile */}
+          <div className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'} order-2 lg:order-2`} style={{ animationDelay: '600ms' }}>
             <PhoneMockup greeting={currentGreeting} />
           </div>
         </div>

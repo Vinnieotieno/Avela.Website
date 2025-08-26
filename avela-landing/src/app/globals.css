@@ -164,4 +164,28 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(51 65 85 / 0.1)'%3e%3cpath d='m0 .5h32m-32 32v-32'/%3e%3c/svg%3e");
 }
 
+/* Tawk.to Widget Customization - Show only icon */
+#tawk-bubble {
+  /* Ensure the bubble is visible but compact */
+  bottom: 20px !important;
+  right: 20px !important;
+}
+
+/* Hide any automatic messages or notifications */
+.tawk-chat-panel {
+  display: none !important;
+}
+
+/* Style the chat icon to match your brand */
+.tawk-min-container {
+  background-color: #0081CC !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 12px rgba(0, 129, 204, 0.3) !important;
+}
+
+/* Hide message count badges initially */
+.tawk-badge {
+  display: none !important;
+}
+
 
