@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ChevronDown, ChevronUp, HelpCircle, Mail, Phone, MessageCircle, Send, User, MapPin, Clock, Star } from "lucide-react"
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { Form, FormField, Select } from '@/components/ui/form'
 
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
@@ -102,13 +103,22 @@ export default function FAQPage() {
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-4 mb-20">
-            {filteredFaqs.map((faq, index) => (
-              <Card key={faq.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg dark:shadow-gray-900/50 transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group">
-                <button
-                  className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                >
+          <div className="space-y-4 mb-20" role="region" aria-label="Frequently Asked Questions">
+            {filteredFaqs.map((faq, index) => {
+              const isOpen = openIndex === index
+              const buttonId = `faq-button-${faq.id}`
+              const panelId = `faq-panel-${faq.id}`
+
+              return (
+                <Card key={faq.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-lg dark:shadow-gray-900/50 transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group">
+                  <h3>
+                    <button
+                      id={buttonId}
+                      className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                    >
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
                       <span className="text-xs font-semibold text-[#0081CC] dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-full">
@@ -121,30 +131,37 @@ export default function FAQPage() {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg group-hover:text-[#0081CC] dark:group-hover:text-blue-400 transition-colors">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <div className="ml-4 flex-shrink-0">
-                    {openIndex === index ? (
-                      <ChevronUp className="w-5 h-5 text-[#0081CC] dark:text-blue-400" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-400 dark:text-gray-500" />
-                    )}
-                  </div>
-                </button>
-                
-                {openIndex === index && (
-                  <div className="px-8 pb-6">
-                    <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {faq.answer}
-                      </p>
+                      <span className="font-semibold text-gray-900 dark:text-gray-100 text-lg group-hover:text-[#0081CC] dark:group-hover:text-blue-400 transition-colors">
+                        {faq.question}
+                      </span>
                     </div>
+                    <div className="ml-4 flex-shrink-0" aria-hidden="true">
+                      {isOpen ? (
+                        <ChevronUp className="w-5 h-5 text-[#0081CC] dark:text-blue-400" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                      )}
+                    </div>
+                  </button>
+                </h3>
+
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className={`px-8 pb-6 transition-all duration-300 ${
+                    isOpen ? 'block' : 'hidden'
+                  }`}
+                >
+                  <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </div>
-                )}
+                </div>
               </Card>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -173,71 +190,75 @@ export default function FAQPage() {
                 </p>
               </div>
 
-              <form className="space-y-6">
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  // Handle form submission
+                }}
+                aria-label="Contact support form"
+              >
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Full Name
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                      <input
-                        type="text"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#0081CC] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                        placeholder="Enter your full name"
-                        required
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                      <input
-                        type="email"
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#0081CC] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                        placeholder="Enter your email"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Subject
-                  </label>
-                  <input
+                  <FormField
+                    label="Full Name"
                     type="text"
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#0081CC] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                    placeholder="What's your question about?"
+                    placeholder="Enter your full name"
                     required
+                    helperText="We'll use this to personalize our response"
+                  />
+
+                  <FormField
+                    label="Email Address"
+                    type="email"
+                    placeholder="Enter your email address"
+                    required
+                    helperText="We'll send our response to this email"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-[#0081CC] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
-                    placeholder="Tell us more about your question or concern..."
-                    required
-                  />
-                </div>
+                <Select
+                  label="Subject Category"
+                  placeholder="Select a category"
+                  required
+                  options={[
+                    { value: "account", label: "Account & Registration" },
+                    { value: "payments", label: "Payments & Transfers" },
+                    { value: "technical", label: "Technical Support" },
+                    { value: "fees", label: "Fees & Charges" },
+                    { value: "security", label: "Security & Privacy" },
+                    { value: "other", label: "Other" }
+                  ]}
+                  helperText="This helps us route your question to the right team"
+                />
 
-                <Button 
+                <FormField
+                  label="Subject"
+                  type="text"
+                  placeholder="Brief description of your question"
+                  required
+                  helperText="A short summary of what you need help with"
+                />
+
+                <FormField
+                  label="Message"
+                  multiline
+                  rows={5}
+                  placeholder="Tell us more about your question or concern..."
+                  required
+                  helperText="Please provide as much detail as possible to help us assist you better"
+                />
+
+                <Button
                   type="submit"
                   className="w-full bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-[#006bb3] hover:to-blue-700 text-white py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105"
+                  aria-describedby="submit-help"
                 >
-                  <Send className="w-5 h-5 mr-2" />
+                  <Send className="w-5 h-5 mr-2" aria-hidden="true" />
                   Send Message
                 </Button>
-              </form>
+                <p id="submit-help" className="text-sm text-gray-600 dark:text-gray-400 text-center">
+                  We typically respond within 24 hours
+                </p>
+              </Form>
             </Card>
 
             {/* Contact Info */}

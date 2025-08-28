@@ -11,12 +11,28 @@ export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-900 overflow-x-hidden transition-colors duration-300">
       <Hero />
-      <Features />
-     {/* <MpesaIntegration />*/}
-      <UseCases />
-      <Analytics />
-      <Testimonials />
-      <AppDownload />
+
+      <section aria-label="Features and benefits">
+        <Features />
+      </section>
+
+      {/* <MpesaIntegration />*/}
+
+      <section aria-label="Use cases and examples">
+        <UseCases />
+      </section>
+
+      <section aria-label="Analytics and statistics">
+        <Analytics />
+      </section>
+
+      <section aria-label="Customer testimonials">
+        <Testimonials />
+      </section>
+
+      <section aria-label="Mobile app download">
+        <AppDownload />
+      </section>
     </div>
   )
 }

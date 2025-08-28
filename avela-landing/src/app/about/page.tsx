@@ -71,19 +71,29 @@ const milestones: Milestone[] = [
 // Individual Components for better maintainability
 const ValueCard = ({ value }: { value: CompanyValue }) => {
   const IconComponent = value.icon
-  
+
   return (
-    <Card className="group relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700 overflow-hidden">
+    <Card
+      className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700 overflow-hidden"
+      role="article"
+      aria-labelledby={`value-${value.title.toLowerCase().replace(/\s+/g, '-')}`}
+    >
       <div className={`absolute inset-0 bg-gradient-to-br from-${value.color}-500/5 to-${value.color}-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-      <div className="relative space-y-6">
-        <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br from-${value.color}-500 to-${value.color}-600 text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-          <IconComponent className="w-8 h-8" />
+      <div className="relative space-y-4 sm:space-y-6">
+        <div
+          className={`inline-flex p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-${value.color}-500 to-${value.color}-600 text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
+          aria-hidden="true"
+        >
+          <IconComponent className="w-6 h-6 sm:w-8 sm:h-8" />
         </div>
         <div className="space-y-3">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#0081CC] dark:group-hover:text-blue-400 transition-colors">
+          <h3
+            id={`value-${value.title.toLowerCase().replace(/\s+/g, '-')}`}
+            className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#0081CC] dark:group-hover:text-blue-400 transition-colors"
+          >
             {value.title}
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
             {value.description}
           </p>
         </div>
@@ -93,15 +103,25 @@ const ValueCard = ({ value }: { value: CompanyValue }) => {
 }
 
 const MilestoneCard = ({ milestone }: { milestone: Milestone }) => (
-  <Card className="bg-gradient-to-br from-[#0081CC]/10 to-blue-600/10 dark:from-[#0081CC]/20 dark:to-blue-600/20 rounded-3xl p-8 border border-[#0081CC]/20 dark:border-[#0081CC]/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+  <Card
+    className="bg-gradient-to-br from-[#0081CC]/10 to-blue-600/10 dark:from-[#0081CC]/20 dark:to-blue-600/20 rounded-3xl p-6 sm:p-8 border border-[#0081CC]/20 dark:border-[#0081CC]/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+    role="article"
+    aria-labelledby={`milestone-${milestone.year}`}
+  >
     <div className="space-y-4">
-      <div className="inline-flex px-4 py-2 bg-[#0081CC] text-white rounded-full text-sm font-semibold">
+      <div
+        className="inline-flex px-3 sm:px-4 py-2 bg-[#0081CC] text-white rounded-full text-xs sm:text-sm font-semibold"
+        aria-label={`Year ${milestone.year}`}
+      >
         {milestone.year}
       </div>
-      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+      <h3
+        id={`milestone-${milestone.year}`}
+        className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white"
+      >
         {milestone.title}
       </h3>
-      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
         {milestone.description}
       </p>
     </div>
@@ -112,44 +132,59 @@ export default function AboutPage() {
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+      <section
+        className="pt-32 pb-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden"
+        aria-labelledby="about-hero-heading"
+        role="banner"
+      >
         <div className="absolute inset-0 bg-grid-slate-100/50 dark:bg-grid-slate-800/30 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-[#0081CC]/5 to-blue-500/5 dark:from-[#0081CC]/10 dark:to-blue-500/10 rounded-full blur-3xl" />
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-4xl mx-auto">
-            {/*<div className="inline-flex items-center gap-2 bg-[#0081CC]/10 text-[#0081CC] px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Sparkles className="w-4 h-4" />
-              About Avela Technologies
-            </div>*/}
-            
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-              Empowering Innovation,
+            <h1
+              id="about-hero-heading"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight"
+            >
+              <span className="block">Empowering Innovation,</span>
               <span className="block bg-gradient-to-r from-[#0081CC] to-blue-600 bg-clip-text text-transparent">
                 Shaping the Future
               </span>
             </h1>
-            
-            <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-              Founded in 2025, Avela Technologies is a leading innovator in the technology sector, 
+
+            <p
+              className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8 px-4 sm:px-0"
+              aria-describedby="company-founding-info"
+            >
+              Founded in 2025, Avela Technologies is a leading innovator in the technology sector,
               delivering quality services in tech solutions with a commitment to excellence.
             </p>
+
+            <div id="company-founding-info" className="sr-only">
+              Avela Technologies was established in 2025 as a technology company focused on innovation and excellence in digital solutions.
+            </div>
           </div>
         </div>
       </section>
 
       {/* Company Overview */}
-      <section className="py-20 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section
+        className="py-20 bg-white dark:bg-gray-900"
+        aria-labelledby="company-overview-heading"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="space-y-8">
               <div className="space-y-6">
-                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100">
+                <h2
+                  id="company-overview-heading"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100"
+                >
                   Company Overview
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                  With a commitment to excellence and a passion for advancing digital solutions, 
-                  we deliver quality services in tech solutions. Our team of dedicated professionals 
+                <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                  With a commitment to excellence and a passion for advancing digital solutions,
+                  we deliver quality services in tech solutions. Our team of dedicated professionals
                   is driven by the pursuit of quality and customer satisfaction.
                 </p>
               </div>
@@ -210,17 +245,17 @@ export default function AboutPage() {
 
       {/* Company Values */}
       <section className="py-20 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
               Our Company Values
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 px-4 sm:px-0">
               The principles that guide our innovation and shape our culture
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {companyValues.map((value, index) => (
               <ValueCard key={index} value={value} />
             ))}
@@ -250,11 +285,11 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-[#0081CC] via-blue-600 to-blue-700 dark:from-blue-900 dark:via-blue-800 dark:to-blue-900">
-        <div className="max-w-4xl mx-auto text-center px-6 lg:px-8">
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
             Join Us in Shaping the Future
           </h2>
-          <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+          <p className="text-lg sm:text-xl text-blue-100 mb-8 leading-relaxed px-4 sm:px-0">
             Be part of the digital transformation that's empowering Africa through innovative technology solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

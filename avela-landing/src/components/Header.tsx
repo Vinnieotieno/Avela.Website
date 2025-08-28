@@ -1,9 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Menu, X, Sun, Moon, ArrowRight, Clock, Wallet } from "lucide-react"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
 
 import { useTheme } from "./ThemeProvider"
+import { useAccessibility, handleKeyboardNavigation, KEYBOARD_KEYS } from "@/hooks/useAccessibility"
 
 export default function EnhancedHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -11,6 +14,9 @@ export default function EnhancedHeader() {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [showTopBanner, setShowTopBanner] = useState(true)
   const { theme, toggleTheme } = useTheme()
+  const { announceToScreenReader, trapFocus } = useAccessibility()
+  const pathname = usePathname()
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
 
   // Update time every minute
   useEffect(() => {
@@ -31,6 +37,38 @@ export default function EnhancedHeader() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Handle mobile menu accessibility
+  useEffect(() => {
+    if (isMenuOpen) {
+      // Trap focus in mobile menu
+      const cleanup = trapFocus('.mobile-menu')
+      // Announce menu opening to screen readers
+      announceToScreenReader('Navigation menu opened')
+
+      // Handle escape key to close menu
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setIsMenuOpen(false)
+          announceToScreenReader('Navigation menu closed')
+        }
+      }
+
+      document.addEventListener('keydown', handleEscape)
+
+      return () => {
+        cleanup?.()
+        document.removeEventListener('keydown', handleEscape)
+      }
+    }
+  }, [isMenuOpen, trapFocus, announceToScreenReader])
+
+  // Handle theme toggle accessibility
+  const handleThemeToggle = () => {
+    toggleTheme()
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    announceToScreenReader(`Switched to ${newTheme} mode`)
+  }
 
   // Get time-based greeting
   const getGreeting = () => {
@@ -106,7 +144,7 @@ export default function EnhancedHeader() {
 
       {/* Enhanced Main Header */}
       <header
-        className={`fixed left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
           showTopBanner ? 'top-12' : 'top-0'
         } ${
           isScrolled
@@ -119,8 +157,8 @@ export default function EnhancedHeader() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             
             {/* Enhanced Logo */}
-            <div className="flex items-center space-x-3 group cursor-pointer" role="img" aria-label="Avela Logo">
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 group-hover:scale-110 transition-transform duration-300">
+            <Link href="/" className="flex items-center space-x-3 group cursor-pointer" role="img" aria-label="Avela Logo">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 group-hover:scale-110 transition-transform duration-200">
                 <img
                   src="/avelalogo.png"
                   alt="Avela Logo"
@@ -128,90 +166,110 @@ export default function EnhancedHeader() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#0081CC] via-blue-600 to-blue-700 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:to-[#0081CC] transition-all duration-300">
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#0081CC] via-blue-600 to-blue-700 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:to-[#0081CC] transition-all duration-200">
                   Avela
                 </span>
                 <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} font-medium -mt-1`}>
                   Salary Access
                 </span>
               </div>
-            </div>
+            </Link>
 
             {/* Enhanced Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-2" role="navigation" aria-label="Main navigation">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`relative group px-6 py-3 text-sm font-semibold transition-all duration-300 rounded-xl hover:scale-105 ${
-                    theme === 'dark' 
-                      ? 'text-gray-300 hover:text-blue-400' 
-                      : 'text-gray-700 hover:text-[#0081CC]'
-                  }`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                  aria-label={`Navigate to ${item.name}`}
-                >
-                  <span className="relative z-10 flex items-center">
-                    <span>{item.name}</span>
-                  </span>
-                  
-                  {/* Hover background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#0081CC]/5 via-blue-500/10 to-[#0081CC]/5 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300" />
-                  
-                  {/* Active indicator */}
-                  <div className="absolute bottom-1 left-1/2 w-0 h-0.5 bg-gradient-to-r from-[#0081CC] to-blue-500 group-hover:w-3/4 group-hover:left-1/8 transition-all duration-300 rounded-full" />
-                  
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#0081CC]/20 to-blue-500/20 blur-xl scale-0 group-hover:scale-150 transition-transform duration-500 -z-10" />
-                </a>
-              ))}
+              {navItems.map((item, index) => {
+                // Handle trailing slashes in pathname matching
+                const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+                const isActive = (item.href === '/' && normalizedPathname === '/') ||
+                                (item.href !== '/' && normalizedPathname === item.href)
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`nav-underline ${isActive ? 'active' : ''} relative group px-6 py-3 text-sm font-semibold transition-all duration-200 rounded-xl hover:scale-105 ${
+                      isActive
+                        ? theme === 'dark'
+                          ? 'text-blue-400 bg-blue-500/10'
+                          : 'text-[#0081CC] bg-[#0081CC]/10'
+                        : theme === 'dark'
+                          ? 'text-gray-300 hover:text-blue-400'
+                          : 'text-gray-700 hover:text-[#0081CC]'
+                    }`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                    aria-label={`Navigate to ${item.name}`}
+                  >
+                    <span className="relative z-10 flex items-center">
+                      <span>{item.name}</span>
+                    </span>
+
+                    {/* Hover background */}
+                    <div className={`absolute inset-0 bg-gradient-to-r from-[#0081CC]/5 via-blue-500/10 to-[#0081CC]/5 rounded-xl transition-transform duration-200 ${
+                      isActive ? 'scale-100' : 'scale-0 group-hover:scale-100'
+                    }`} />
+                  </Link>
+                )
+              })}
             </nav>
 
             {/* Enhanced Right Section */}
             <div className="flex items-center space-x-3">
               {/* Enhanced Theme Toggle */}
               <button
-                onClick={toggleTheme}
-                className={`p-3 rounded-xl transition-all duration-300 group relative overflow-hidden ${
-                  theme === 'dark' 
-                    ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700' 
+                onClick={handleThemeToggle}
+                className={`p-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${
+                  theme === 'dark'
+                    ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
                     : 'bg-gray-100 hover:bg-gray-200 border border-gray-200'
                 }`}
-                aria-label="Toggle theme"
+                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                aria-pressed={theme === 'dark'}
               >
                 <div className="relative z-10">
                   {theme === "dark" ? (
-                    <Sun className="w-5 h-5 text-yellow-500 group-hover:scale-110 group-hover:rotate-180 transition-all duration-500" />
+                    <Sun className="w-5 h-5 text-yellow-500 group-hover:scale-110 group-hover:rotate-180 transition-all duration-200" />
                   ) : (
-                    <Moon className="w-5 h-5 text-gray-600 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500" />
+                    <Moon className="w-5 h-5 text-gray-600 group-hover:scale-110 group-hover:-rotate-12 transition-all duration-200" />
                   )}
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 scale-0 group-hover:scale-100 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 scale-0 group-hover:scale-100 transition-transform duration-200" />
               </button>
 
               {/* Enhanced CTA Button */}
-              <button className="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-blue-700 hover:to-[#0081CC] text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 hover:-translate-y-1 group relative overflow-hidden">
+              <Link
+                href="https://avela-admin.azurewebsites.net/login?redirect=/dashboard"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-blue-700 hover:to-[#0081CC] text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 hover:-translate-y-1 group relative overflow-hidden"
+              >
                 <span className="relative z-10">Get Started</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              </button>
+              </Link>
 
               {/* Enhanced Mobile Menu Button */}
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`lg:hidden p-3 rounded-xl transition-all duration-300 group relative ${
-                  theme === 'dark' 
-                    ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700' 
+                onClick={() => {
+                  setIsMenuOpen(!isMenuOpen)
+                  if (!isMenuOpen) {
+                    announceToScreenReader('Navigation menu opened')
+                  } else {
+                    announceToScreenReader('Navigation menu closed')
+                  }
+                }}
+                className={`lg:hidden p-3 rounded-xl transition-all duration-200 group relative ${
+                  theme === 'dark'
+                    ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
                     : 'bg-gray-100 hover:bg-gray-200 border border-gray-200'
                 } ${isMenuOpen ? 'scale-95' : ''}`}
-                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 aria-expanded={isMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 <div className="relative z-10">
                   {isMenuOpen ? (
-                    <X className={`w-6 h-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} group-hover:rotate-90 transition-transform duration-300`} />
+                    <X className={`w-6 h-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} group-hover:rotate-90 transition-transform duration-200`} />
                   ) : (
-                    <Menu className={`w-6 h-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} group-hover:scale-110 transition-transform duration-300`} />
+                    <Menu className={`w-6 h-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} group-hover:scale-110 transition-transform duration-200`} />
                   )}
                 </div>
               </button>
@@ -220,40 +278,66 @@ export default function EnhancedHeader() {
 
           {/* Enhanced Mobile Navigation */}
           <div
-            className={`lg:hidden transition-all duration-500 ease-out overflow-hidden ${
+            id="mobile-navigation"
+            className={`mobile-menu lg:hidden transition-all duration-500 ease-out overflow-hidden ${
               isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
             }`}
+            aria-hidden={!isMenuOpen}
+            ref={mobileMenuRef}
           >
-            <div className={`py-6 space-y-3 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
-              {navItems.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center justify-between px-6 py-4 rounded-xl transition-all duration-300 group ${
-                    theme === 'dark' 
-                      ? 'text-gray-300 hover:text-blue-400 hover:bg-gray-800/50' 
-                      : 'text-gray-700 hover:text-[#0081CC] hover:bg-gray-50'
-                  }`}
-                  style={{ 
-                    animationDelay: `${index * 100}ms`,
-                    transform: isMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
-                    transition: `all 0.3s ease ${index * 100}ms`
-                  }}
-                  onClick={() => setIsMenuOpen(false)}
-                  role="menuitem"
-                >
-                  <span className="font-medium">{item.name}</span>
-                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
-                </a>
-              ))}
+            <nav
+              className={`py-6 space-y-3 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
+              role="navigation"
+              aria-label="Mobile navigation"
+            >
+              {navItems.map((item, index) => {
+                // Handle trailing slashes in pathname matching
+                const normalizedPathname = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+                const isActive = (item.href === '/' && normalizedPathname === '/') ||
+                                (item.href !== '/' && normalizedPathname === item.href)
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`mobile-nav-accent ${isActive ? 'active' : ''} relative flex items-center justify-between px-6 py-4 rounded-xl transition-all duration-200 group ${
+                      isActive
+                        ? theme === 'dark'
+                          ? 'text-blue-400 bg-blue-500/10'
+                          : 'text-[#0081CC] bg-[#0081CC]/10'
+                        : theme === 'dark'
+                          ? 'text-gray-300 hover:text-blue-400 hover:bg-gray-800/50'
+                          : 'text-gray-700 hover:text-[#0081CC] hover:bg-gray-50'
+                    }`}
+                    style={{
+                      animationDelay: `${index * 100}ms`,
+                      transform: isMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
+                      transition: `all 0.2s ease ${index * 100}ms`
+                    }}
+                    onClick={() => setIsMenuOpen(false)}
+                    role="menuitem"
+                  >
+                    <span className="font-medium">{item.name}</span>
+                    <ArrowRight className={`w-4 h-4 transition-all duration-200 ${
+                      isActive ? 'opacity-100 translate-x-1' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'
+                    }`} />
+
+
+                  </Link>
+                )
+              })}
               
               <div className="px-6 pt-4">
-                <button className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-blue-700 hover:to-[#0081CC] text-white px-6 py-4 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] group">
+                <Link
+                  href="https://avela-admin.azurewebsites.net/login?redirect=/dashboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-blue-700 hover:to-[#0081CC] text-white px-6 py-4 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-[1.02] group"
+                >
                   <span>Get Started Today</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                </button>
+                </Link>
               </div>
-            </div>
+            </nav>
           </div>
         </div>
 

@@ -108,9 +108,13 @@ const TypewriterText = ({ text, delay = 100, className = "" }: { text: string; d
 
 const PhoneMockup = ({ greeting }: { greeting: TimeGreeting }) => {
   const GreetingIcon = greeting.icon
-  
+
   return (
-    <div className="relative w-full mt-8 sm:mt-12 lg:mt-18 max-w-xs sm:max-w-sm mx-auto lg:max-w-none">
+    <div
+      className="relative w-full mt-8 sm:mt-12 lg:mt-18 max-w-xs sm:max-w-sm mx-auto lg:max-w-none"
+      role="img"
+      aria-label="Mobile app interface showing salary advance features and balance of Ksh 11,247.50 available to withdraw"
+    >
       {/* Main Phone */}
       <div className="relative mx-auto w-64 sm:w-72 md:w-80 lg:w-72 xl:w-80 h-[520px] sm:h-[580px] md:h-[640px] lg:h-[580px] xl:h-[640px] bg-gradient-to-br from-gray-900 to-black rounded-[2.5rem] sm:rounded-[3rem] p-2 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 group">
         <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 rounded-[2.5rem] overflow-hidden relative">
@@ -244,7 +248,11 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen w-full flex items-center overflow-hidden transition-colors duration-300 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <section
+      className="relative min-h-screen w-full flex items-center overflow-hidden transition-colors duration-300 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+      aria-label="Hero section - Access advance salary instantly"
+      role="banner"
+    >
       {/* Dynamic gradient orbs that follow mouse */}
       <div 
         className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-gradient-to-br from-[#0081CC]/20 to-blue-500/20 dark:from-[#0081CC]/30 dark:to-blue-500/30 rounded-full blur-3xl -z-10 transition-all duration-1000 ease-out"
@@ -276,7 +284,10 @@ export default function Hero() {
             <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/50 dark:border-gray-700/50 shadow-2xl">
               {/* Enhanced main heading with typing effect */}
               <div className="space-y-4 sm:space-y-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
+                <h1
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight"
+                  aria-label="Access advance salary instantly - Get your earned wages before payday"
+                >
                   {showTyping ? (
                     <>
                       <div className="block text-gray-900 dark:text-white mb-2 sm:mb-4">
@@ -302,26 +313,53 @@ export default function Hero() {
                   )}
                 </h1>
                 
-                <p className="text-lg sm:text-xl lg:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
-                  No more waiting for payday. Get up to 75% of your earned wages in minutes, 
+                <p
+                  className="text-lg sm:text-xl lg:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed font-medium"
+                  aria-describedby="hero-benefits"
+                >
+                  No more waiting for payday. Get up to 75% of your earned wages in minutes,
                   not weeks. Zero credit checks, transparent fees.
                 </p>
+
+                {/* Screen reader benefits list */}
+                <div id="hero-benefits" className="sr-only">
+                  <ul>
+                    <li>Get up to 75% of earned wages instantly</li>
+                    <li>No credit checks required</li>
+                    <li>Transparent fee structure</li>
+                    <li>Available 24/7</li>
+                  </ul>
+                </div>
               </div>
 
               {/* Enhanced CTA buttons with advanced animations */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-6 sm:mt-8">
-                <button className="group relative bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-[#006bb3] hover:to-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-[#0081CC]/25 transform hover:scale-105 flex items-center justify-center space-x-2 overflow-hidden">
+              <div className="flex flex-col sm:flex-row gap-4 mt-6 sm:mt-8" role="group" aria-label="Call to action buttons">
+                <button
+                  className="group relative bg-gradient-to-r from-[#0081CC] to-blue-600 hover:from-[#006bb3] hover:to-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold transition-all duration-300 hover:shadow-2xl hover:shadow-[#0081CC]/25 transform hover:scale-105 flex items-center justify-center space-x-2 overflow-hidden"
+                  aria-label="Get your salary advance - Start application process"
+                  aria-describedby="cta-primary-help"
+                >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                   <span className="relative z-10">Get Your Advance</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform relative z-10" aria-hidden="true" />
                 </button>
-                
-                <button className="group relative bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold border border-white/50 dark:border-gray-700/50 hover:border-[#0081CC]/30 dark:hover:border-blue-400/30 transition-all duration-300 hover:shadow-xl backdrop-blur-sm flex items-center justify-center space-x-2 overflow-hidden">
+                <div id="cta-primary-help" className="sr-only">
+                  Click to start your salary advance application. Quick approval in under 2 minutes.
+                </div>
+
+                <button
+                  className="group relative bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-base sm:text-lg font-semibold border border-white/50 dark:border-gray-700/50 hover:border-[#0081CC]/30 dark:hover:border-blue-400/30 transition-all duration-300 hover:shadow-xl backdrop-blur-sm flex items-center justify-center space-x-2 overflow-hidden"
+                  aria-label="Watch demo video - See how Avela works"
+                  aria-describedby="cta-demo-help"
+                >
                   <div className="absolute inset-0 bg-gradient-to-r from-[#0081CC]/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current relative z-10" />
+                  <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current relative z-10" aria-hidden="true" />
                   <span className="relative z-10">Watch Demo</span>
                 </button>
+                <div id="cta-demo-help" className="sr-only">
+                  Watch a 2-minute video demonstration of how to use Avela to get your salary advance.
+                </div>
               </div>
             </div>
           </div>

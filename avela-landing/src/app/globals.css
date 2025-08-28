@@ -118,6 +118,270 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Faster theme transitions for all elements */
+  *, *::before, *::after {
+    transition-duration: 0.2s !important;
+  }
+
+  /* Specific fast transitions for common theme-dependent elements */
+  .dark, .light {
+    transition: all 0.2s ease;
+  }
+
+  /* Accessibility Enhancements */
+
+  /* Enhanced focus indicators with better visibility */
+  *:focus {
+    outline: 3px solid #0081CC;
+    outline-offset: 3px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);
+  }
+
+  /* High contrast focus for dark mode */
+  .dark *:focus {
+    outline-color: #60A5FA;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Enhanced focus for interactive elements */
+  button:focus,
+  a:focus,
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 3px solid #0081CC;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(0, 129, 204, 0.3);
+  }
+
+  .dark button:focus,
+  .dark a:focus,
+  .dark input:focus,
+  .dark select:focus,
+  .dark textarea:focus {
+    outline-color: #60A5FA;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9), 0 0 8px rgba(96, 165, 250, 0.3);
+  }
+
+  /* Focus visible only for keyboard navigation */
+  .js-focus-visible *:focus:not(.focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .js-focus-visible *:focus.focus-visible {
+    outline: 3px solid #0081CC;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(0, 129, 204, 0.3);
+  }
+
+  /* Skip link styles */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #0081CC;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 9999;
+    transition: top 0.3s ease;
+  }
+
+  .skip-link:focus {
+    top: 6px;
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      border-color: currentColor !important;
+    }
+
+    button, a, input, select, textarea {
+      border: 2px solid currentColor !important;
+    }
+
+    /* Enhanced contrast for text */
+    body {
+      background: white !important;
+      color: black !important;
+    }
+
+    .dark body {
+      background: black !important;
+      color: white !important;
+    }
+
+    /* High contrast buttons */
+    button {
+      background: white !important;
+      color: black !important;
+      border: 3px solid black !important;
+    }
+
+    .dark button {
+      background: black !important;
+      color: white !important;
+      border: 3px solid white !important;
+    }
+
+    /* High contrast links */
+    a {
+      color: blue !important;
+      text-decoration: underline !important;
+    }
+
+    .dark a {
+      color: cyan !important;
+    }
+  }
+
+  /* Color blind friendly indicators */
+  .status-success::before {
+    content: "✓ ";
+    font-weight: bold;
+  }
+
+  .status-error::before {
+    content: "✗ ";
+    font-weight: bold;
+  }
+
+  .status-warning::before {
+    content: "⚠ ";
+    font-weight: bold;
+  }
+
+  .status-info::before {
+    content: "ℹ ";
+    font-weight: bold;
+  }
+
+  /* Loading animations */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) skewX(-12deg); }
+    100% { transform: translateX(200%) skewX(-12deg); }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(0, 129, 204, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(0, 129, 204, 0.8);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .animate-gradient-shift {
+    animation: gradientShift 4s ease infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Skeleton loading styles */
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .dark .skeleton {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+    background-size: 200% 100%;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Focus trap for modals */
+  .focus-trap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9998;
+  }
+
+  /* Keyboard navigation indicators */
+  .keyboard-navigation *:focus {
+    outline: 3px solid #0081CC;
+    outline-offset: 2px;
+  }
+
+  .dark.keyboard-navigation *:focus {
+    outline-color: #60A5FA;
   }
 }
 
@@ -182,6 +446,76 @@
   border-radius: 50% !important;
   box-shadow: 0 4px 12px rgba(0, 129, 204, 0.3) !important;
 }
+
+/* Clean navigation underlines */
+.nav-underline {
+  position: relative;
+  overflow: visible;
+}
+
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0081CC, #3b82f6, #0081CC);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 129, 204, 0.3);
+}
+
+.nav-underline.active::after {
+  width: 85%;
+}
+
+.nav-underline:hover::after {
+  width: 70%;
+}
+
+/* Mobile navigation accent */
+.mobile-nav-accent {
+  position: relative;
+  overflow: visible;
+}
+
+.mobile-nav-accent::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 0;
+  background: linear-gradient(180deg, #0081CC, #3b82f6);
+  border-radius: 0 3px 3px 0;
+  transition: height 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0, 129, 204, 0.3);
+}
+
+.mobile-nav-accent.active::before {
+  height: 40px;
+}
+
+.mobile-nav-accent::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 24px;
+  right: 24px;
+  height: 0;
+  background: linear-gradient(90deg, #0081CC, #3b82f6);
+  border-radius: 1px;
+  transition: height 0.3s ease;
+}
+
+.mobile-nav-accent.active::after {
+  height: 2px;
+}
+
+
 
 /* Hide message count badges initially */
 .tawk-badge {

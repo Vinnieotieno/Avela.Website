@@ -29,7 +29,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
     const root = window.document.documentElement
     root.classList.remove('light', 'dark')
-    
+
+    // Add transition class for smooth theme switching
+    root.style.transition = 'background-color 0.2s ease, color 0.2s ease'
+
     if (theme === 'dark') {
       root.classList.add('dark')
     } else {

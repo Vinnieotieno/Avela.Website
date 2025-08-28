@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AccessibilityProvider } from "@/components/AccessibilityProvider";
+import { LoadingProvider } from "@/components/LoadingProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
@@ -42,12 +44,31 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#0081CC" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <AccessibilityProvider>
+            <LoadingProvider showInitialLoader={true} minLoadTime={3500}>
+              {/* Skip Links for Keyboard Navigation */}
+              <a href="#main-content" className="skip-link">
+                Skip to main content
+              </a>
+              <a href="#navigation" className="skip-link">
+                Skip to navigation
+              </a>
+
+              {/* Screen Reader Announcements */}
+              <div id="announcements" aria-live="polite" aria-atomic="true" className="sr-only"></div>
+
+              <Header />
+              <main id="main-content" className="min-h-screen" role="main" tabIndex={-1}>
+                {children}
+              </main>
+              <Footer />
+            </LoadingProvider>
+          </AccessibilityProvider>
 
           {/* Tawk.to Script - Configured to show only icon */}
           <Script id="tawk-to" strategy="afterInteractive">
