@@ -144,36 +144,39 @@ export default function EnhancedHeader() {
 
       {/* Enhanced Main Header */}
       <header
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 ${
           showTopBanner ? 'top-12' : 'top-0'
         } ${
           isScrolled
             ? `${theme === 'dark' ? 'bg-gray-800/95' : 'bg-gray-100/95'} backdrop-blur-xl border-b ${theme === 'dark' ? 'border-gray-700/50' : 'border-gray-300/50'} shadow-2xl shadow-blue-500/10`
             : `${theme === 'dark' ? 'bg-gray-900/90' : 'bg-gray-50/90'} backdrop-blur-md border-b ${theme === 'dark' ? 'border-gray-800/30' : 'border-gray-200/30'}`
         }`}
+        style={{ transition: 'top 0.3s ease' }}
         role="banner"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
-            
-            {/* Enhanced Logo */}
-            <Link href="/" className="flex items-center space-x-3 group cursor-pointer" role="img" aria-label="Avela Logo">
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 group-hover:scale-110 transition-transform duration-200">
-                <img
-                  src="/avelalogo.png"
-                  alt="Avela Logo"
-                  className="w-full h-full object-contain rounded-xl"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#0081CC] via-blue-600 to-blue-700 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:to-[#0081CC] transition-all duration-200">
-                  Avela
-                </span>
-                <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} font-medium -mt-1`}>
-                  Salary Access
-                </span>
-              </div>
-            </Link>
+
+            {/* Enhanced Logo - Fixed to far left */}
+            <div className="flex-shrink-0">
+              <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer" role="img" aria-label="Avela Logo">
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 group-hover:scale-110 transition-transform duration-200">
+                  <img
+                    src="/avelalogo.png"
+                    alt="Avela Logo"
+                    className="w-full h-full object-contain rounded-xl"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold bg-gradient-to-r from-[#0081CC] via-blue-600 to-blue-700 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:to-[#0081CC]">
+                    Avela
+                  </span>
+                  <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} font-medium -mt-1`}>
+                    Salary Access
+                  </span>
+                </div>
+              </Link>
+            </div>
 
             {/* Enhanced Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-2" role="navigation" aria-label="Main navigation">
@@ -216,7 +219,7 @@ export default function EnhancedHeader() {
               {/* Enhanced Theme Toggle */}
               <button
                 onClick={handleThemeToggle}
-                className={`p-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${
+                className={`p-3 rounded-xl group relative overflow-hidden ${
                   theme === 'dark'
                     ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
                     : 'bg-gray-100 hover:bg-gray-200 border border-gray-200'
@@ -256,7 +259,7 @@ export default function EnhancedHeader() {
                     announceToScreenReader('Navigation menu closed')
                   }
                 }}
-                className={`lg:hidden p-3 rounded-xl transition-all duration-200 group relative ${
+                className={`lg:hidden p-3 rounded-xl group relative ${
                   theme === 'dark'
                     ? 'bg-gray-800 hover:bg-gray-700 border border-gray-700'
                     : 'bg-gray-100 hover:bg-gray-200 border border-gray-200'

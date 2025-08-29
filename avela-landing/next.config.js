@@ -8,11 +8,7 @@ const nextConfig = {
     unoptimized: true
   },
   assetPrefix: '',
-  basePath: '',
-  // Disable server-side features for static export
-  experimental: {
-    esmExternals: false
-  }
+  basePath: ''
 }
 
 module.exports = nextConfig

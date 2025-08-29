@@ -1,4 +1,4 @@
-// components/ThemeProvider.tsx
+
 "use client"
 
 import { createContext, useContext, useEffect, useState } from 'react'
@@ -30,8 +30,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const root = window.document.documentElement
     root.classList.remove('light', 'dark')
 
-    // Add transition class for smooth theme switching
-    root.style.transition = 'background-color 0.2s ease, color 0.2s ease'
+    // Removing any transition for instant theme switching
+    root.style.transition = 'none'
 
     if (theme === 'dark') {
       root.classList.add('dark')
@@ -45,7 +45,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (stored) {
       setTheme(stored)
     } else {
-      // Always default to light mode, ignoring system preference
+      // I have set it to default to light mode, ignoring system preference
       setTheme('light')
       localStorage.setItem('theme', 'light')
     }

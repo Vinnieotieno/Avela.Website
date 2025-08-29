@@ -173,9 +173,9 @@ export default function ServicesPage() {
         
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-[#0081CC]/10 text-[#0081CC] px-4 py-2 rounded-full text-sm font-medium mb-6">
+            {/*<div className="inline-flex items-center gap-2 bg-[#0081CC]/10 text-[#0081CC] px-4 py-2 rounded-full text-sm font-medium mb-6">
               Our Services
-            </div>
+            </div>*/}
             
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6">
               Innovative Technology

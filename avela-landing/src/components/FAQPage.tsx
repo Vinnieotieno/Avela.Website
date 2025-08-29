@@ -58,17 +58,17 @@ export default function FAQPage() {
     : faqs.filter(faq => faq.category === selectedCategory)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 mt-16 to-white dark:from-gray-900 dark:to-gray-800">
       {/* Header Section */}
       <section className="py-20 bg-gradient-to-br from-[#0081CC] to-blue-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent" />
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-white/10 to-transparent rounded-full blur-3xl" />
         
         <div className="max-w-4xl mx-auto px-6 text-center text-white relative">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
+          {/*<div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium mb-6">
             <HelpCircle className="w-4 h-4" />
             Support Center
-          </div>
+          </div>*/}
           
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
             How Can We

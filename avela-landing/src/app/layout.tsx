@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
-import { LoadingProvider } from "@/components/LoadingProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
@@ -50,24 +49,22 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
           <AccessibilityProvider>
-            <LoadingProvider showInitialLoader={true} minLoadTime={3500}>
-              {/* Skip Links for Keyboard Navigation */}
-              <a href="#main-content" className="skip-link">
-                Skip to main content
-              </a>
-              <a href="#navigation" className="skip-link">
-                Skip to navigation
-              </a>
+            {/* Skip Links for Keyboard Navigation */}
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
+            <a href="#navigation" className="skip-link">
+              Skip to navigation
+            </a>
 
-              {/* Screen Reader Announcements */}
-              <div id="announcements" aria-live="polite" aria-atomic="true" className="sr-only"></div>
+            {/* Screen Reader Announcements */}
+            <div id="announcements" aria-live="polite" aria-atomic="true" className="sr-only"></div>
 
-              <Header />
-              <main id="main-content" className="min-h-screen" role="main" tabIndex={-1}>
-                {children}
-              </main>
-              <Footer />
-            </LoadingProvider>
+            <Header />
+            <main id="main-content" className="min-h-screen" role="main" tabIndex={-1}>
+              {children}
+            </main>
+            <Footer />
           </AccessibilityProvider>
 
           {/* Tawk.to Script - Configured to show only icon */}
