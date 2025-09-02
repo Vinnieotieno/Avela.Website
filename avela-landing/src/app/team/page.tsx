@@ -175,15 +175,15 @@ export default function TeamPage() {
               Meet Our Team
             </div>*/}
             
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-              Dedicated Professionals
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight">
+              <span className="block">Dedicated Professionals</span>
               <span className="block bg-gradient-to-r from-[#0081CC] to-blue-600 bg-clip-text text-transparent">
                 Driving Innovation
               </span>
             </h1>
             
-            <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-              Our team consists of dedicated professionals with extensive expertise in software development, 
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8 max-w-4xl mx-auto">
+              Our team consists of dedicated professionals with extensive expertise in software development,
               artificial intelligence, and technology consulting.
             </p>
           </div>

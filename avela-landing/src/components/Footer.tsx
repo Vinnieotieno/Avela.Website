@@ -176,9 +176,9 @@ export default function Footer() {
               <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-gray-400 text-sm">
                 <span>© {currentYear} Avela. All rights reserved.</span>
                 <div className="flex space-x-6">
-                  <a href="#" className="hover:text-[#0081cc] transition-colors">Privacy Policy</a>
-                  <a href="#" className="hover:text-[#0081cc] transition-colors">Terms of Service</a>
-                  <a href="#" className="hover:text-[#0081cc] transition-colors">Cookie Policy</a>
+                  <a href="/privacy" className="hover:text-[#0081cc] transition-colors">Privacy Policy</a>
+                  <a href="/terms" className="hover:text-[#0081cc] transition-colors">Terms of Service</a>
+                  <a href="/cookies" className="hover:text-[#0081cc] transition-colors">Cookie Policy</a>
                 </div>
               </div>
               

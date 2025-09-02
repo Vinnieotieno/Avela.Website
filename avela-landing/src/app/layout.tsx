@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -65,6 +66,9 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+
+            {/* Cookie Consent Banner */}
+            <CookieConsent />
           </AccessibilityProvider>
 
           {/* Tawk.to Script - Configured to show only icon */}
