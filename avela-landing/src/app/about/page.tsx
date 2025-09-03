@@ -1,6 +1,32 @@
-import { Sparkles, Target, Eye, Users, Heart, Handshake, Zap, Shield, Globe, TrendingUp } from 'lucide-react'
+import { Metadata } from "next"
+import { generatePageMetadata } from "@/lib/seo"
+import { Sparkles, Target, Eye, Users, Heart, Handshake, Shield, Globe } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+
+export const metadata: Metadata = generatePageMetadata({
+  title: "About Avela - Transforming Financial Access for Kenyan Workers",
+  description: "Learn about Avela's mission to provide instant salary access to 1.9M Kenyan workers earning under KES 50,000. Breaking the cycle of predatory lending with 0% interest EWA solutions.",
+  keywords: [
+    "about Avela",
+    "Avela company",
+    "earned wage access Kenya",
+    "financial inclusion Kenya",
+    "Kenyan workers financial access",
+    "predatory lending alternative",
+    "EWA platform Kenya",
+    "financial wellness Kenya",
+    "employee financial benefits",
+    "salary advance company Kenya",
+    "fintech Kenya",
+    "mobile money solutions",
+    "workplace financial wellness",
+    "Kenyan startup",
+    "financial technology Kenya"
+  ],
+  path: "/about",
+  type: "website"
+})
 
 // Types for better maintainability
 interface CompanyValue {
@@ -74,7 +100,7 @@ const ValueCard = ({ value }: { value: CompanyValue }) => {
 
   return (
     <Card
-      className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700 overflow-hidden"
+      className="group relative bg-white dark:bg-gray-800  mt-12 rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700 overflow-hidden"
       role="article"
       aria-labelledby={`value-${value.title.toLowerCase().replace(/\s+/g, '-')}`}
     >
@@ -133,32 +159,72 @@ export default function AboutPage() {
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
       <section
-        className="pt-32 pb-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden"
+        className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden"
         aria-labelledby="about-hero-heading"
         role="banner"
       >
-        <div className="absolute inset-0 bg-grid-slate-100/50 dark:bg-grid-slate-800/30 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-[#0081CC]/5 to-blue-500/5 dark:from-[#0081CC]/10 dark:to-blue-500/10 rounded-full blur-3xl" />
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/Advance.jpg')",
+          }}
+        />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center max-w-4xl mx-auto">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-[#0081CC]/30" />
+
+        {/* Animated Background Elements */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-[#0081CC]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#0081CC]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="text-center max-w-5xl mx-auto">
+            {/* Badge */}
+            {/*<div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8">
+              <div className="w-2 h-2 bg-[#0081CC] rounded-full mr-3 animate-pulse"></div>
+              <span className="text-white text-sm font-semibold tracking-wide">ABOUT AVELA</span>
+            </div>*/}
+
             <h1
               id="about-hero-heading"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight"
             >
-              <span className="block">Empowering Innovation,</span>
-              <span className="block bg-gradient-to-r from-[#0081CC] to-blue-600 bg-clip-text text-transparent">
-                Shaping the Future
+              <span className="block">Transforming Financial Access</span>
+              <span className="block bg-gradient-to-r from-[#0081CC] to-blue-400 bg-clip-text text-transparent">
+                for Kenyan Workers
               </span>
             </h1>
 
             <p
-              className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8 px-4 sm:px-0"
+              className="text-xl md:text-2xl text-white/90 leading-relaxed mb-12 px-4 sm:px-0 max-w-4xl mx-auto"
               aria-describedby="company-founding-info"
             >
-              Founded in 2025, Avela Technologies is a leading innovator in the technology sector,
-              delivering quality services in tech solutions with a commitment to excellence.
+              Avela addresses the financial challenges facing <span className="text-[#0081CC] font-semibold">74%</span> of Kenyan salaried workers who earn under
+              KES 50,000 monthly. We provide instant access to earned wages without loans, interest, or debt -
+              breaking the cycle of predatory lending.
             </p>
+
+            {/* Stats Row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">74%</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Workers Under KES 50K</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#0081CC] mb-2">1.9M</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Target Users</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">0%</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Interest Rate</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#0081CC] mb-2">24/7</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Access</div>
+              </div>
+            </div>
 
             <div id="company-founding-info" className="sr-only">
               Avela Technologies was established in 2025 as a technology company focused on innovation and excellence in digital solutions.

@@ -317,8 +317,8 @@ export default function Hero() {
                   className="text-lg sm:text-xl lg:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed font-medium"
                   aria-describedby="hero-benefits"
                 >
-                  No more waiting for payday. Get up to 75% of your earned wages in minutes,
-                  not weeks. Zero credit checks, transparent fees.
+                  Kenya's digital Earned Wage Access platform. Access your accrued salary instantly
+                  without loans, interest, or debt. Designed for Kenyan workers' financial flexibility.
                 </p>
 
                 {/* Screen reader benefits list */}

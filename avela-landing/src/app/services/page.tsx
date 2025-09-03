@@ -1,6 +1,32 @@
+import { Metadata } from "next"
+import { generatePageMetadata, generateServiceStructuredData } from "@/lib/seo"
 import { Smartphone, Globe, Shield, Zap, CreditCard, Users, CheckCircle, ArrowRight, TrendingUp, Clock, Star } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+
+export const metadata: Metadata = generatePageMetadata({
+  title: "Avela Services - Instant M-Pesa Salary Access | 0% Interest EWA Platform",
+  description: "Discover Avela's earned wage access services. Instant M-Pesa transfers, 0% interest, 24/7 availability, bank-level security. Kenya's leading EWA platform for employees and employers.",
+  keywords: [
+    "Avela services",
+    "M-Pesa salary advance",
+    "instant salary transfer",
+    "earned wage access services",
+    "0% interest salary advance",
+    "24/7 salary access",
+    "bank-level security",
+    "employee financial services",
+    "employer benefits",
+    "payroll integration",
+    "financial wellness services",
+    "EWA platform features",
+    "mobile money services",
+    "instant money transfer Kenya",
+    "workplace financial benefits"
+  ],
+  path: "/services",
+  type: "website"
+})
 
 // Types for better maintainability
 interface ServiceFeature {
@@ -167,27 +193,63 @@ export default function ServicesPage() {
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-slate-100/50 dark:bg-grid-slate-800/30 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-[#0081CC]/5 to-blue-500/5 dark:from-[#0081CC]/10 dark:to-blue-500/10 rounded-full blur-3xl" />
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center max-w-4xl mx-auto">
-            {/*<div className="inline-flex items-center gap-2 bg-[#0081CC]/10 text-[#0081CC] px-4 py-2 rounded-full text-sm font-medium mb-6">
-              Our Services
+      <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/Services.jpg')",
+          }}
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-[#0081CC]/30" />
+
+        {/* Animated Background Elements */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-[#0081CC]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#0081CC]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 z-10">
+          <div className="text-center max-w-5xl mx-auto">
+            {/* Badge */}
+           {/* <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8">
+              <div className="w-2 h-2 bg-[#0081CC] rounded-full mr-3 animate-pulse"></div>
+              <span className="text-white text-sm font-semibold tracking-wide">OUR SERVICES</span>
             </div>*/}
-            
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-              Innovative Technology
-              <span className="block bg-gradient-to-r from-[#0081CC] to-blue-600 bg-clip-text text-transparent">
-                Solutions
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+              <span className="bg-gradient-to-r from-[#0081CC] to-blue-400 bg-clip-text text-transparent">
+                Avela
               </span>
+              <span className="block">Earned Wage Access</span>
             </h1>
-            
-            <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-              Avela Technologies builds innovative technology solutions that address real-world challenges 
-              and improve people's lives across the world.
+
+            <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-12 max-w-4xl mx-auto">
+              Kenya's leading digital platform providing instant access to your earned salary.
+              Designed with Kenyan workers in mind - offering financial flexibility without loans,
+              interest, or debt.
             </p>
+
+            {/* Service Features Row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">Instant</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">M-Pesa Transfer</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#0081CC] mb-2">0%</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Interest Rate</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">24/7</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Availability</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#0081CC] mb-2">Secure</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Bank-Level</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

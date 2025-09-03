@@ -50,14 +50,14 @@ export default function Footer() {
   ]
 
   const socialLinks = [
-    { icon: <Facebook className="w-5 h-5" />, href: "#", name: "Facebook" },
-    { icon: <Twitter className="w-5 h-5" />, href: "#", name: "Twitter" },
-    { icon: <Instagram className="w-5 h-5" />, href: "#", name: "Instagram" },
+    { icon: <Facebook className="w-5 h-5" />, href: "https://www.facebook.com/share/1FPvLEAvQB/", name: "Facebook" },
+    { icon: <Twitter className="w-5 h-5" />, href: "https://x.com/avelafinan79261", name: "X (Twitter)" },
+    { icon: <Instagram className="w-5 h-5" />, href: "https://instagram.com/avela_finance", name: "Instagram" },
     { icon: <Linkedin className="w-5 h-5" />, href: "#", name: "LinkedIn" }
   ]
 
   const contactInfo = [
-    { icon: <Mail className="w-4 h-4" />, text: "hello@avela.co.ke" },
+    { icon: <Mail className="w-4 h-4" />, text: "business@avela.co.ke" },
     { icon: <Phone className="w-4 h-4" />, text: "+254-700-AVELA" },
     { icon: <MapPin className="w-4 h-4" />, text: "Nairobi, Kenya" }
   ]

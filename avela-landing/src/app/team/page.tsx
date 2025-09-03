@@ -1,6 +1,32 @@
+import { Metadata } from "next"
+import { generatePageMetadata } from "@/lib/seo"
 import { Users, Star, Award, Globe, TrendingUp, Zap, Shield, CheckCircle, ArrowRight } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+
+export const metadata: Metadata = generatePageMetadata({
+  title: "Meet the Avela Team - Fintech Experts Driving Financial Innovation in Kenya",
+  description: "Meet Avela's expert team of fintech professionals, software developers, and financial inclusion advocates. 50+ years combined experience building Kenya's leading EWA platform.",
+  keywords: [
+    "Avela team",
+    "fintech experts Kenya",
+    "EWA platform team",
+    "financial technology experts",
+    "Kenya fintech professionals",
+    "software development team",
+    "financial inclusion experts",
+    "earned wage access experts",
+    "mobile money specialists",
+    "payroll integration experts",
+    "financial wellness team",
+    "Kenyan startup team",
+    "technology innovation team",
+    "financial services experts",
+    "EWA platform developers"
+  ],
+  path: "/team",
+  type: "website"
+})
 
 // Types for better maintainability
 interface TeamStat {
@@ -25,12 +51,12 @@ interface TeamValue {
 }
 
 // Data separated for maintainability
-const teamStats: TeamStat[] = [
+/*const teamStats: TeamStat[] = [
   { icon: Users, value: "25+", label: "Team Members", color: "blue" },
   { icon: Star, value: "15+", label: "Years Experience", color: "yellow" },
   { icon: Award, value: "50+", label: "Awards Won", color: "green" },
   { icon: Globe, value: "10+", label: "Countries Served", color: "purple" }
-]
+]*/
 
 const departments: Department[] = [
   {
@@ -119,7 +145,7 @@ const DepartmentCard = ({ department }: { department: Department }) => {
   const IconComponent = department.icon
   
   return (
-    <Card className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
+    <Card className="group relative bg-white mt-12  dark:bg-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
       <div className="space-y-4">
         <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br from-${department.color}-500 to-${department.color}-600 text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
           <IconComponent className="w-6 h-6" />
@@ -164,28 +190,62 @@ export default function TeamPage() {
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-slate-100/50 dark:bg-grid-slate-800/30 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]" />
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-[#0081CC]/5 to-blue-500/5 dark:from-[#0081CC]/10 dark:to-blue-500/10 rounded-full blur-3xl" />
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
-          <div className="text-center max-w-4xl mx-auto">
-           {/*<div className="inline-flex items-center gap-2 bg-[#0081CC]/10 text-[#0081CC] px-4 py-2 rounded-full text-sm font-medium mb-6">
-              <Users className="w-4 h-4" />
-              Meet Our Team
+      <section className="relative pt-32 pb-20 min-h-screen flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/Team.jpg')",
+          }}
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-[#0081CC]/30" />
+
+        {/* Animated Background Elements */}
+        <div className="absolute top-20 left-20 w-32 h-32 bg-[#0081CC]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#0081CC]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 z-10">
+          <div className="text-center max-w-5xl mx-auto">
+            {/* Badge */}
+            {/*<div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8">
+              <div className="w-2 h-2 bg-[#0081CC] rounded-full mr-3 animate-pulse"></div>
+              <span className="text-white text-sm font-semibold tracking-wide">OUR TEAM</span>
             </div>*/}
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-gray-100 mb-6 leading-tight">
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
               <span className="block">Dedicated Professionals</span>
-              <span className="block bg-gradient-to-r from-[#0081CC] to-blue-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-[#0081CC] to-blue-400 bg-clip-text text-transparent">
                 Driving Innovation
               </span>
             </h1>
-            
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8 max-w-4xl mx-auto">
-              Our team consists of dedicated professionals with extensive expertise in software development,
-              artificial intelligence, and technology consulting.
+
+            <p className="text-xl md:text-2xl text-white/90 leading-relaxed mb-12 max-w-4xl mx-auto">
+              Our team consists of dedicated professionals with extensive expertise in <span className="text-[#0081CC] font-semibold">software development,
+              fintech innovation, and technology consulting</span>. Together, we're revolutionizing financial access in Kenya.
             </p>
+
+            {/* Team Stats Row */}
+            {/*<div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">10+</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Team Members</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#0081CC] mb-2">50+</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-2">5</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Core Disciplines</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#0081CC] mb-2">100%</div>
+                <div className="text-white/70 text-sm uppercase tracking-wide">Committed</div>
+              </div>
+            </div>*/}
           </div>
         </div>
       </section>
@@ -193,11 +253,11 @@ export default function TeamPage() {
       {/* Team Stats */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {/*<div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {teamStats.map((stat, index) => (
               <StatCard key={index} stat={stat} />
             ))}
-          </div>
+          </div>*/}
         </div>
       </section>
 

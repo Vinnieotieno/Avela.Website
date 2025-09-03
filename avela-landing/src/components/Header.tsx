@@ -83,7 +83,9 @@ export default function EnhancedHeader() {
     { name: "Home", href: "/" },
     { name: "Who We Are", href: "/about" },
     { name: "Our Services", href: "/services" },
+    { name: "Blog", href: "/blog" },
     { name: "Team", href: "/team" },
+    { name: "Investors", href: "/investors" },
     { name: "FAQ", href: "/faq" },
   ]
 
